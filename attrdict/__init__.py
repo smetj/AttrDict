@@ -244,7 +244,7 @@ class AttrDict(MutableMapping):
         """
         Create a string representation of the AttrDict.
         """
-        return u"a{0}".format(repr(self._mapping))
+        return u"AttrDict({0})".format(repr(self._mapping))
 
     def __missing__(self, key):
         """
