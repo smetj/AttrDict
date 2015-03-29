@@ -317,7 +317,11 @@ class AttrDict(MutableMapping):
             """
             Iterate over (key, value) 2-tuples in the mapping
             """
-            return self._mapping.iteritems()
+            for key, value in self._mapping.iteritems():
+                if isinstance(value, dict):
+                    yield key, self._build(value, recursive=self._recursive)
+                else:
+                    yield key, value
 
         def iterkeys(self):
             """
@@ -329,7 +333,11 @@ class AttrDict(MutableMapping):
             """
             Iterate over values in the mapping
             """
-            return self._mapping.itervalues()
+            for value in self._mapping.itervalues():
+                if isinstance(value, dict):
+                    yield self._build(value, recursive=self._recursive)
+                else:
+                    yield value
 
         def has_key(self, key):
             """
